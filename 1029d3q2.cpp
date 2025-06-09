@@ -19,7 +19,13 @@ using namespace std;
 #define mll map<long long, long long>
 
 void solve(){
-
+    int n;cin>>n;
+    vi ans;
+    ans.pb(2);
+    for (int i=3;i<=n;++i) ans.pb(i);
+    ans.pb(1);
+    for(int i=0;i<n;i++) cout<<ans[i]<<" ";
+    
 }
 int main() {
     ios::sync_with_stdio(false);

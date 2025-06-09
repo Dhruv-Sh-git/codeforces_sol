@@ -19,7 +19,23 @@ using namespace std;
 #define mll map<long long, long long>
 
 void solve(){
-
+        int n;
+        cin >> n;
+        vll v(n);
+        for (int i = 0; i < n; i++) {
+            cin>>v[i];
+        }
+        ll ans = LLONG_MAX;
+        int i=0;
+         while(i<n) {
+        int j = i;
+        while (j+ 1 <n && v[j + 1]==v[i]) j++;
+        ll temp= v[i];
+        ll cost = temp*(i + (n - 1 - j)); 
+        ans = min(ans,cost);
+        i= j + 1;
+    }
+    cout<<ans;
 }
 int main() {
     ios::sync_with_stdio(false);

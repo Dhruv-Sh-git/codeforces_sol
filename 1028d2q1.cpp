@@ -19,7 +19,14 @@ using namespace std;
 #define mll map<long long, long long>
 
 void solve(){
-
+    int a,b,c,d;
+    cin>>a>>b>>c>>d;
+    int ming=min(a,c);
+    int minf=min(b,d);
+    if(c>=minf && a>=minf){
+        cout<<"Gellyfish";
+    }
+    else cout<<"Flower";
 }
 int main() {
     ios::sync_with_stdio(false);
