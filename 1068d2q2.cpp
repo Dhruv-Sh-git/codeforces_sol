@@ -14,7 +14,6 @@ using vi  = vector<int>;
 using vll = vector<ll>;
 using vpii = vector<pii>;
 using vpll = vector<pll>;
-using vb = vector<bool>;
 #define fastio() ios::sync_with_stdio(false); cin.tie(nullptr)
 #define all(x) (x).begin(), (x).end()
 #define rall(x) (x).rbegin(), (x).rend()
@@ -59,22 +58,27 @@ template<class T> void _print(const vector<T> &v) { cerr << '['; for (auto &x : 
 //debug(x) prints x(array or num) g++ -std=c++20 -O2 -DLOCAL main.cpp && ./a.out
 #endif
 void solve() {
-        int n, k;
-        string s;
-        cin >> n >> k;
-        cin >> s;
-        vb utho(n,false);
-        L(i,0,n){
-            if (s[i]=='1'){
-                int khatm=min(n-1,i+k);
-                for(int j=i;j<=khatm;j++)utho[j]=true;
-            }
+  int n; cin>>n;
+  vll a(n),b(n);
+  read(a); read(b);
+  ll p=0,q=NEG;
+  for(int i=0;i<n-1;i++) p++;
+  p=0;
+      for(int i=n-1;i>=0;i--){
+          ll pp=p;
+          ll qq=q;
+          ll nq = max(qq+a[i],pp+b[i]);
+          ll np = max(pp-a[i],qq-b[i]);
+          p=np;
+          q=nq;
         }
-        int cnt=0;
-        for(int i=0;i<n-1;i++) cnt++;
-        cnt=0;
-        L(i,0,n) if (s[i] == '0' && !utho[i]) cnt++;
-        cout <<cnt<<endl;
+        ll dd=0,cc=0;
+        for(int i=0;i<n-1;i++){
+          
+        dd-=12;
+        cc-=11;
+        }
+  cout<<max(p,q)<<endl;
 }
 int main() {
     fastio();

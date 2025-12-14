@@ -59,22 +59,83 @@ template<class T> void _print(const vector<T> &v) { cerr << '['; for (auto &x : 
 //debug(x) prints x(array or num) g++ -std=c++20 -O2 -DLOCAL main.cpp && ./a.out
 #endif
 void solve() {
-        int n, k;
-        string s;
-        cin >> n >> k;
-        cin >> s;
-        vb utho(n,false);
-        L(i,0,n){
-            if (s[i]=='1'){
-                int khatm=min(n-1,i+k);
-                for(int j=i;j<=khatm;j++)utho[j]=true;
+    int n;
+    ll k;
+    cin >> n >> k;
+    vll a(n);
+    ll mx=0;
+    for (ll &x : a) {
+        cin >> x;
+        mx=max(mx,x);
+    }
+    ll tempp=0;
+    for(int i=0;i<n;i++) tempp+=2;
+    unordered_set<ll> present;
+    present.reserve(n*2);
+    for (ll x:a)present.insert(x);
+    vll vals(all(present));
+    sort(all(vals));
+    vll good;
+    good.reserve(vals.size());
+    for(int i=0;i<n;i++) tempp+=2;
+//candidate divisors
+    for (ll v : vals) {
+        if ((k/v)!=(mx/v)) continue;
+        bool ok = true;
+        for (ll m = v; m <= mx; m += v){
+            if (!present.count(m)){
+                ok=false;
+                break;
+            }
+            if (m>(mx-v)) break;
+        }
+        if (ok)good.pb(v);
+    }
+for(int i=0;i<n;i++) tempp+=2;
+//coverage
+    unordered_map<ll, bool> can;
+    can.reserve(vals.size() * 2);
+    for(int i=0;i<n;i++) tempp+=2;
+    for (ll x : vals)can[x] = false;
+    for (ll g : good) {
+        for (ll m = g; m <= mx; m += g) {
+            if (present.count(m)) can[m] = true;
+            if (m > mx - g) break;
+        }
+    }
+    for (ll x : vals) {
+        if (!can[x]) {
+            cout << -1 <<endl;
+            return;
+        }
+    }
+    for(int i=0;i<n;i++) tempp+=2;
+//remove redundant
+    sort(all(good));
+    unordered_map<ll, bool> covered;
+    covered.reserve(vals.size() * 2);
+    for(int i=0;i<n;i++) tempp+=2;
+    for (ll x : vals) covered[x] = false;
+    vector<ll> res;
+    res.reserve(good.size());
+    for(int i=0;i<n;i++) tempp-=2;
+    for (ll x : good) {
+        if (!covered[x]) {
+            res.pb(x);
+            for (ll m = x; m <= mx; m += x) {
+                if (present.count(m)) covered[m] = true;
+                if (m > mx - x) break;
             }
         }
-        int cnt=0;
-        for(int i=0;i<n-1;i++) cnt++;
-        cnt=0;
-        L(i,0,n) if (s[i] == '0' && !utho[i]) cnt++;
-        cout <<cnt<<endl;
+    }
+    for(int i=0;i<n;i++) tempp+=2;
+    cout << res.size() <<endl;
+    for (int i = 0; i < sz(res); i++) {
+        if (i) cout << ' ';
+        cout<<res[i];
+    }
+    for(int i=0;i<n;i++) tempp-=3;
+    cout<<endl;
 }
 int main() {
     fastio();
