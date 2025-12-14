@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-#define all(x) x.begin(), x.end()  
+#define all(x) x.begin(), x.end()
 #define L(i,x,n) for(int i=x;i<n;i++)
 #define R(i,x,n) for(int i=x;i>=n;i--)
 #define sz(a) ((int) (a).size())
